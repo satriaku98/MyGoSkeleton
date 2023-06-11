@@ -25,9 +25,13 @@ type testerRepo struct {
 
 func (a *testerRepo) Tester(testerData request.TesterRequest) (responses.TesterResponse, string, error) {
 	var dataTester responses.TesterResponse
-
+	var query string
 	//Database Query Execute
 	err := a.sqlDb.Get(&dataTester, "select JustString from Test2 where id = $1", testerData.JustString)
+	if err != nil {
+		fmt.Println("Error!", err.Error())
+		return dataTester, "", err
+	}
 
 	//HTTP Request
 	//Create Request Message
@@ -41,6 +45,9 @@ func (a *testerRepo) Tester(testerData request.TesterRequest) (responses.TesterR
 		IsSuccess: true,
 	}
 	requestMarshaler, _ := json.Marshal(request)
+	//Save Log to Database
+	query = fmt.Sprintf(`INSERT INTO public.table_log (request, response, log_date) VALUES('%s', '%s', now());`, string(requestMarshaler), "")
+	_, err = a.sqlDb.Exec(query)
 	getConfig := configs.NewConfig().ConfigApp
 	// params := map[string]string{"key1": "val1", "key2": "val2"}
 	//var user1, errPost = HttpPost(requestMarshaler, baseURL, params)
@@ -51,7 +58,9 @@ func (a *testerRepo) Tester(testerData request.TesterRequest) (responses.TesterR
 		return dataTester, reqq, err
 	}
 	resString, _ := json.Marshal(user1)
-	fmt.Println("Response", string(resString))
+	//Save Log to Database
+	query = fmt.Sprintf(`INSERT INTO public.table_log (request, response, log_date) VALUES('%s', '%s', now());`, "", string(resString))
+	_, err = a.sqlDb.Exec(query)
 
 	//Logic
 	result := utility.CheckStrings(testerData.JustString, dataTester.JustString)

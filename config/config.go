@@ -63,7 +63,7 @@ func newPostgreConn() string {
 	dbPassword := GetConfigValue("DBPASSWORD")
 	dbPort := GetConfigValue("DBPORT")
 	urlDb := fmt.Sprintf("postgres://%s:%s@%s:%s/%s", dbUsername, dbPassword, dbHost, dbPort, dbName)
-	fmt.Println(urlDb)
+	// fmt.Println(urlDb)
 	// urlExample := "postgres://username:password@localhost:5432/database_name"
 
 	return urlDb
