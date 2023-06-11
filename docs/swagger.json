@@ -1,0 +1,63 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/tester": {
+            "post": {
+                "description": "Tester",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "example"
+                ],
+                "summary": "Tester Example",
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.TesterRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/responses.TesterResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "request.TesterRequest": {
+            "type": "object",
+            "required": [
+                "justString"
+            ],
+            "properties": {
+                "justString": {
+                    "type": "string"
+                }
+            }
+        },
+        "responses.TesterResponse": {
+            "type": "object",
+            "properties": {
+                "just_string": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,10 @@
+SERVERURL: "localhost"
+SERVERPORT: "8000"
+
+DBHOST: "localhost"
+DBUSERNAME: "postgres"
+DBPASSWORD: "5434"
+DBPORT: "5432"
+DBNAME: "postgres"
+
+OTHER_API_URL: "http://localhost:3001/paymentpurchase"

@@ -1,0 +1,39 @@
+definitions:
+  request.TesterRequest:
+    properties:
+      justString:
+        type: string
+    required:
+    - justString
+    type: object
+  responses.TesterResponse:
+    properties:
+      just_string:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /tester:
+    post:
+      consumes:
+      - application/json
+      description: Tester
+      parameters:
+      - description: Request body
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.TesterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: '#/definitions/responses.TesterResponse'
+      summary: Tester Example
+      tags:
+      - example
+swagger: "2.0"
